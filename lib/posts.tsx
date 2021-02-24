@@ -1,6 +1,6 @@
 import path from "path";
 import fs,{promises as fsPromise} from 'fs'
-import * as matter from 'gray-matter';
+import matter from 'gray-matter';
 
 export const getPosts = async () => {
   const markdownDir = path.join(process.cwd() , 'markdown')
