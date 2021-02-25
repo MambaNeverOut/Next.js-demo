@@ -9,5 +9,7 @@ declare module "*.jpg" {
 type Post = {
   id: string;
   date: string;
-  title: string
+  title: string;
+  content: string;
+  htmlContent: string
 }
