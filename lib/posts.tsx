@@ -33,5 +33,5 @@ export const getPost = async (id:string) => {
 
 export const getPostIds = async () => {
   const fileNames = await fsPromise.readdir(markdownDir)
-  return fileNames.map(fileName => fileName.replace('/\.md$/g', ''))
+  return fileNames.map(fileName => fileName.replace(/\.md$/g, ''))
 }
