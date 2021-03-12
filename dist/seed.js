@@ -10,14 +10,25 @@ require("reflect-metadata");
 
 var _typeorm = require("typeorm");
 
+var _User = require("./entity/User");
+
 // import { Post } from "./entity/Post";
 (0, _typeorm.createConnection)().then( /*#__PURE__*/function () {
   var _ref = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee(connection) {
+    var manager, u1;
     return _regenerator["default"].wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            // const posts = await connection.manager.find(Post);
+            manager = connection.manager;
+            u1 = new _User.User();
+            u1.username = 'irelia';
+            u1.passwordDigest = 'xxx';
+            _context.next = 6;
+            return manager.save(u1);
+
+          case 6:
+            console.log(u1.id); // const posts = await connection.manager.find(Post);
             // if (posts.length === 0) {
             //   // const p = new Post('Post', '我的第一篇文章');
             //   // p.title = 'Post 1';
@@ -29,9 +40,10 @@ var _typeorm = require("typeorm");
             // }
             // const posts2 = await connection.manager.find(Post);
             // console.log(posts2);
+
             connection.close();
 
-          case 1:
+          case 8:
           case "end":
             return _context.stop();
         }

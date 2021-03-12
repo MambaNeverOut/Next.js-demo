@@ -1,8 +1,16 @@
 import "reflect-metadata";
 import { createConnection } from "typeorm";
+import { User } from "./entity/User";
 // import { Post } from "./entity/Post";
 
 createConnection().then(async connection => {
+  const { manager } = connection
+  const u1 = new User();
+  u1.username = 'irelia'
+  u1.passwordDigest = 'xxx'
+  await manager.save(u1);
+  console.log(u1.id);
+
   // const posts = await connection.manager.find(Post);
   // if (posts.length === 0) {
   //   // const p = new Post('Post', '我的第一篇文章');
