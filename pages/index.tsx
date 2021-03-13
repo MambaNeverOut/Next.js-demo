@@ -1,12 +1,12 @@
 import Link from 'next/link'
 import styles from '../styles/Home.module.css'
 import {s} from 'styles/s'
-import png from 'assets/images/1.jpg'
 import { GetServerSideProps, NextPage } from 'next';
 import UAParser from 'ua-parser-js';
 import { useEffect, useState } from 'react';
+import { createConnection, getConnection } from 'typeorm';
+import { getDatabaseConnection} from '../lib/getDatabaseConnection'
 
-console.log(png);
 
 type Props = {
   browser: {
@@ -25,7 +25,6 @@ const index:NextPage<Props> = (props) => {
   },[])
   return (
     <div className={styles.container}>
-      <img src={png}></img>
       <main className={styles.main}>
         <h1 className={styles.title}>
           第一篇文章 
@@ -56,6 +55,10 @@ export default index;
 
 
 export const getServerSideProps: GetServerSideProps = async (context)=> {
+  const connect = await getDatabaseConnection() // 第一次连接
+  // console.log('connect');
+  // console.log(connect);
+  
   const ua = context.req.headers['user-agent']
   const result = new UAParser(ua).getResult()  
   return {
@@ -64,3 +67,5 @@ export const getServerSideProps: GetServerSideProps = async (context)=> {
     }
   }
 }
+
+
