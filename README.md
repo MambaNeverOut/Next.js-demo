@@ -26,6 +26,15 @@ docker volume rm blog-data
 CREATE DATABASE blog_development ENCODING 'UTF8' LC_COLLATE 'en_US.utf8' LC_CTYPE 'en_US.utf8';
 ```
 
+## 数据表
+
+首先修改 ormconfig.json 中的 host，然后运行
+
+```
+yarn migration:run
+node dist/seed.js
+```
+
 ## 开发
 
 ```bash

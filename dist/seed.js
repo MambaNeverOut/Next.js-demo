@@ -31,24 +31,23 @@ var _Comment = require("./entity/Comment");
             return manager.save(u1);
 
           case 6:
-            console.log(u1.id); // 创建 post 1
-
+            // 创建 post 1
             p1 = new _Post.Post();
             p1.title = 'Post 1';
             p1.content = 'My First Post';
             p1.author = u1;
-            _context.next = 13;
+            _context.next = 12;
             return manager.save(p1);
 
-          case 13:
+          case 12:
             c1 = new _Comment.Comment();
             c1.user = u1;
             c1.post = p1;
             c1.content = 'Awesome';
-            _context.next = 19;
+            _context.next = 18;
             return manager.save(c1);
 
-          case 19:
+          case 18:
             // const posts = await connection.manager.find(Post);
             // if (posts.length === 0) {
             //   // const p = new Post('Post', '我的第一篇文章');
@@ -62,6 +61,7 @@ var _Comment = require("./entity/Comment");
             // const posts2 = await connection.manager.find(Post);
             // console.log(posts2);
             connection.close();
+            console.log('OK!');
 
           case 20:
           case "end":
