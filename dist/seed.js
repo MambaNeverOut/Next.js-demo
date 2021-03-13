@@ -10,12 +10,15 @@ require("reflect-metadata");
 
 var _typeorm = require("typeorm");
 
+var _Post = require("./entity/Post");
+
 var _User = require("./entity/User");
 
-// import { Post } from "./entity/Post";
+var _Comment = require("./entity/Comment");
+
 (0, _typeorm.createConnection)().then( /*#__PURE__*/function () {
   var _ref = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee(connection) {
-    var manager, u1;
+    var manager, u1, p1, c1;
     return _regenerator["default"].wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
@@ -28,7 +31,25 @@ var _User = require("./entity/User");
             return manager.save(u1);
 
           case 6:
-            console.log(u1.id); // const posts = await connection.manager.find(Post);
+            console.log(u1.id); // 创建 post 1
+
+            p1 = new _Post.Post();
+            p1.title = 'Post 1';
+            p1.content = 'My First Post';
+            p1.author = u1;
+            _context.next = 13;
+            return manager.save(p1);
+
+          case 13:
+            c1 = new _Comment.Comment();
+            c1.user = u1;
+            c1.post = p1;
+            c1.content = 'Awesome';
+            _context.next = 19;
+            return manager.save(c1);
+
+          case 19:
+            // const posts = await connection.manager.find(Post);
             // if (posts.length === 0) {
             //   // const p = new Post('Post', '我的第一篇文章');
             //   // p.title = 'Post 1';
@@ -40,10 +61,9 @@ var _User = require("./entity/User");
             // }
             // const posts2 = await connection.manager.find(Post);
             // console.log(posts2);
-
             connection.close();
 
-          case 8:
+          case 20:
           case "end":
             return _context.stop();
         }
