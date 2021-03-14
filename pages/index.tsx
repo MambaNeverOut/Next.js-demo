@@ -11,45 +11,17 @@ import { Post } from 'src/entity/Post';
 
 
 type Props = {
-  browser: {
-    name: string,
-    version: string,
-    major: string
-  }
+  posts: Post[],
+
 }
 
 const index:NextPage<Props> = (props) => {
-  const { browser } = props
-  const [width, setWidth] = useState(0)
-  useEffect(()=>{
-    const w = document.documentElement.clientWidth
-    setWidth(w)
-  },[])
+  const {  posts } = props
+  console.log(posts);
+  
   return (
-    <div className={styles.container}>
-      <main className={styles.main}>
-        <h1 className={styles.title}>
-          第一篇文章 
-          <Link href="/posts/first-post">
-            <a>点击这里</a>
-          </Link>
-        </h1>
-
-        <h1>标题1</h1>
-        <p>段落</p>
-
-        <div>
-          <h1>你的浏览器是 {browser.name} </h1>
-          <h2>你的浏览器窗口大小是 {width} 像素</h2>
-        </div>
-        {/* {s}     */}
-        {/* 使用这种方式可以覆盖全局样式
-        <style jsx global>{`
-          body{
-            background:red;
-          }
-        `}</style> */}
-      </main>
+    <div>
+      {posts.map(post => <div key={post.id}>{post.title}</div>)}
     </div>
   )
 }
@@ -65,7 +37,8 @@ export const getServerSideProps: GetServerSideProps = async (context)=> {
   const result = new UAParser(ua).getResult()  
   return {
     props: {
-      browser: result.browser
+      browser: result.browser,
+      posts: JSON.parse(JSON.stringify(posts))
     }
   }
 }
