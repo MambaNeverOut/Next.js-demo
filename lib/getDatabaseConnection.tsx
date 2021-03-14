@@ -1,4 +1,8 @@
+import { Post } from "src/entity/Post"
+import { User } from "src/entity/User"
+import { Comment } from "src/entity/Comment"
 import { createConnection, getConnection, getConnectionManager } from "typeorm"
+import config from 'ormconfig.json'
 // import * as manager from './manager'
 
 // 简单写法
@@ -11,16 +15,24 @@ import { createConnection, getConnection, getConnectionManager } from "typeorm"
 // const promise = create()
 
 // 高级写法（使用 typeorm 自带的 manager）
+const create = async () => {
+  // @ts-ignore
+  return createConnection({
+    ...config,
+    entities: [Post, User, Comment]
+  })
+}
+
 const promise = (async function (){
   const manager = getConnectionManager()
   if(!manager.has('default')){  // manager是否有connection
-    return createConnection()  
+    return create()  
   } else {
     const current = manager.get('default')
     if(current.isConnected){  // connection是否已经关闭
       return current
     }else{
-      return createConnection()
+      return create()
     }
   }
 })()

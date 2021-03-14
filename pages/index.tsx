@@ -4,8 +4,10 @@ import {s} from 'styles/s'
 import { GetServerSideProps, NextPage } from 'next';
 import UAParser from 'ua-parser-js';
 import { useEffect, useState } from 'react';
+import "reflect-metadata";
 import { createConnection, getConnection } from 'typeorm';
 import { getDatabaseConnection} from '../lib/getDatabaseConnection'
+import { Post } from 'src/entity/Post';
 
 
 type Props = {
@@ -55,9 +57,9 @@ export default index;
 
 
 export const getServerSideProps: GetServerSideProps = async (context)=> {
-  const connect = await getDatabaseConnection() // 第一次连接
-  // console.log('connect');
-  // console.log(connect);
+  const connection = await getDatabaseConnection() // 第一次连接
+  const posts = await connection.manager.find(Post)
+  console.log(posts);
   
   const ua = context.req.headers['user-agent']
   const result = new UAParser(ua).getResult()  
