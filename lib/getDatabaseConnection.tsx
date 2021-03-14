@@ -25,16 +25,11 @@ const create = async () => {
 
 const promise = (async function (){
   const manager = getConnectionManager()
-  if(!manager.has('default')){  // manager是否有connection
-    return create()  
-  } else {
-    const current = manager.get('default')
-    if(current.isConnected){  // connection是否已经关闭
-      return current
-    }else{
-      return create()
+  const current = manager.has('default') && manager.get('default')
+    if(current){  
+      await current.close();
     }
-  }
+    return create()
 })()
 
 // 使用自己封装的 manager
