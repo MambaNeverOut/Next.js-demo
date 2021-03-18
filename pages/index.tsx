@@ -21,7 +21,12 @@ const index:NextPage<Props> = (props) => {
   
   return (
     <div>
-      {posts.map(post => <div key={post.id}>{post.title}</div>)}
+      <h1>文章列表</h1>
+      {posts.map(post => 
+        <Link key={post.id} href={`/posts/${post.id}`}>
+          <a>{post.title}</a>
+        </Link>
+      )}
     </div>
   )
 }
@@ -31,8 +36,6 @@ export default index;
 export const getServerSideProps: GetServerSideProps = async (context)=> {
   const connection = await getDatabaseConnection() // 第一次连接
   const posts = await connection.manager.find(Post)
-  console.log(posts);
-  
   const ua = context.req.headers['user-agent']
   const result = new UAParser(ua).getResult()  
   return {
