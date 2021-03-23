@@ -1,7 +1,9 @@
-import { Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { BeforeInsert, Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { Post } from "./Post";
 import { Comment } from "./Comment";
 import { getDatabaseConnection } from "lib/getDatabaseConnection";
+import md5 from "md5";
+import _ from 'lodash';
 
 @Entity('users')
 export class User {
@@ -51,5 +53,13 @@ export class User {
   };
   hasErrors() {
     return !!Object.values(this.errors).find(v => v.length > 0)
+  };
+  @BeforeInsert()  //typeorm 装饰器
+  generatePasswordDigest() {
+    this.passwordDigest = md5(this.password)
+  }
+
+  toJSON() { //去除对象中不想返回的属性
+    return _.omit(this, ['password', 'passwordConfirmation', 'passwordDigest'])
   }
 }

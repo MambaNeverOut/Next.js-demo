@@ -16,13 +16,12 @@ const Posts: NextApiHandler = async (req,res) => {
     user.username = username.trim()
     user.password = password;
     user.passwordConfirmation = passwordConfirmation;
-    // user.passwordDigest = md5(password)
     await user.validate()
-  if(user.hasErrors){
+    if(user.hasErrors()){
     res.statusCode = 422;
     res.write(JSON.stringify(user.errors))
   }else{
-      await connection.manager.save(user);
+    await connection.manager.save(user);
     res.statusCode = 200;
     res.write(JSON.stringify(user));
   }
