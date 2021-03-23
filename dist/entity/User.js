@@ -89,11 +89,15 @@ var User = (_dec = (0, _typeorm.Entity)('users'), _dec2 = (0, _typeorm.PrimaryGe
                 return (0, _getDatabaseConnection.getDatabaseConnection)();
 
               case 6:
-                found = _context.sent.manager.find(User, {
+                _context.next = 8;
+                return _context.sent.manager.find(User, {
                   username: this.username
                 });
 
-                if (found) {
+              case 8:
+                found = _context.sent;
+
+                if (found.length > 0) {
                   this.errors.username.push('用户名已存在，不能重复注册');
                 }
 
@@ -107,7 +111,7 @@ var User = (_dec = (0, _typeorm.Entity)('users'), _dec2 = (0, _typeorm.PrimaryGe
 
                 console.log(this.errors);
 
-              case 11:
+              case 13:
               case "end":
                 return _context.stop();
             }

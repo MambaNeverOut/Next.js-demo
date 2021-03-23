@@ -35,8 +35,9 @@ export class User {
     if (this.username.trim().length < 3) {
       this.errors.username.push('用户名太短')
     }
-    const found = (await getDatabaseConnection()).manager.find(User, { username: this.username })
-    if (found) {
+    const found = await (await getDatabaseConnection()).manager.find(User, { username: this.username })
+
+    if (found.length > 0) {
       this.errors.username.push('用户名已存在，不能重复注册')
     }
     if (this.password === '') {
