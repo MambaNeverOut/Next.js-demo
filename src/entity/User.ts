@@ -60,6 +60,6 @@ export class User {
   }
 
   toJSON() { //去除对象中不想返回的属性
-    return _.omit(this, ['password', 'passwordConfirmation', 'passwordDigest'])
+    return _.omit(this, ['password', 'passwordConfirmation', 'passwordDigest', 'errors'])
   }
 }

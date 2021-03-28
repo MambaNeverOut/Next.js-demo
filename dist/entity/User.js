@@ -145,7 +145,7 @@ var User = (_dec = (0, _typeorm.Entity)('users'), _dec2 = (0, _typeorm.PrimaryGe
     key: "toJSON",
     value: function toJSON() {
       //去除对象中不想返回的属性
-      return _lodash["default"].omit(this, ['password', 'passwordConfirmation', 'passwordDigest']);
+      return _lodash["default"].omit(this, ['password', 'passwordConfirmation', 'passwordDigest', 'errors']);
     }
   }]);
   return User;
