@@ -14,11 +14,10 @@ const SignUp: NextPage = () => {
   })
   const onSubmit = useCallback((e)=>{
     e.preventDefault()
-    console.log(formData);
-    axios.post('api/v1/users', formData)
+    axios.post('api/v1/sessions', formData)
     .then(()=>{
-      window.alert('注册成功');
-      window.location.href = '/sign_in';
+      window.alert('登录成功');
+      window.location.href = '/sign_in'
     }, (error)=>{
       if(error.response){
         const response: AxiosResponse = error.response;
@@ -27,8 +26,6 @@ const SignUp: NextPage = () => {
           console.log(response);
           
           setErrors(response.data)
-          console.log(errors);
-          
         }
         console.log(error);
       }
@@ -37,7 +34,7 @@ const SignUp: NextPage = () => {
   }, [formData])
   return (
     <>
-      <h1>注册</h1>
+      <h1>登录</h1>
       {JSON.stringify(formData)}
       <form onSubmit={onSubmit}>
         {JSON.stringify(errors)}
@@ -68,21 +65,7 @@ const SignUp: NextPage = () => {
             {errors.password.join(',')}
           </div>: null}
         </div>
-        <div>
-          <label>
-            确认密码
-            <input type="password" value={formData.passwordConfirmation}
-              onChange={ e=> setFormData({
-                ...formData,
-                passwordConfirmation: e.target.value
-              })}
-            />
-          </label>
-          {errors.passwordConfirmation && errors.passwordConfirmation.length > 0 ? <div>
-            {errors.passwordConfirmation.join(',')}
-          </div>: null}
-        </div>
-        <button type="submit">注册</button>
+        <button type="submit">登录</button>
       </form>
     </>
   )
