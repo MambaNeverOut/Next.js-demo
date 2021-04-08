@@ -17,7 +17,6 @@ const SignUp: NextPage = () => {
     axios.post('api/v1/sessions', formData)
     .then(()=>{
       window.alert('登录成功');
-      window.location.href = '/sign_in'
     }, (error)=>{
       if(error.response){
         const response: AxiosResponse = error.response;
@@ -35,9 +34,7 @@ const SignUp: NextPage = () => {
   return (
     <>
       <h1>登录</h1>
-      {JSON.stringify(formData)}
       <form onSubmit={onSubmit}>
-        {JSON.stringify(errors)}
         <div>
           <label>
             用户名

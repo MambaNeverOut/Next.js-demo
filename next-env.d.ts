@@ -1,5 +1,6 @@
 /// <reference types="next" />
 /// <reference types="next/types/global" />
+import * as next from 'next';
 
 declare module "*.jpg" {
   const value: string;
@@ -13,3 +14,9 @@ declare module "*.jpg" {
 //   content: string;
 //   htmlContent: string
 // }
+
+declare module 'next' {
+  interface NextApiRequest {
+    session: Session
+  }
+}
